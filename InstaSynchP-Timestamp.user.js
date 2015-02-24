@@ -34,7 +34,7 @@ function Timestamp(version) {
     'default': '\\[hh:mm\\] ',
     'size': 10,
     'section': ['Chat', 'Timestamp']
-  },{
+  }, {
     'id': 'timestamp-format-reset',
     'type': 'hidden',
     'value': 'true'
@@ -47,9 +47,9 @@ Timestamp.prototype.executeOnce = function () {
 
   //one time reset for people who already got it installed
   //remove after couple weeks or so
-  if(gmc.get('timestamp-format-reset')){
+  if (gmc.get('timestamp-format-reset')) {
     gmc.set('timestamp-format-reset', '');
-    gmc.set('chat-timestamp-format','\\[hh:mm\\] ');
+    gmc.set('chat-timestamp-format', '\\[hh:mm\\] ');
     gmc.save();
   }
 
@@ -66,7 +66,7 @@ Timestamp.prototype.executeOnce = function () {
 
   events.on(th, 'AddMessage', function (user, message) {
     //filtered greynames don't get added at all
-    if (!user.loggedin && room.filterGreyname) {
+    if (!isUdef(user.loggedin) && !user.loggedin && room.filterGreyname) {
       return;
     }
 
