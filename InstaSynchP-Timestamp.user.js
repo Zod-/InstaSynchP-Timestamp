@@ -73,7 +73,7 @@ Timestamp.prototype.executeOnce = function () {
     try {
       var unix, timestamp, span;
       //create the timestamp
-      unix = (new moment()).unix();
+      unix = moment().unix();
       timestamp = moment.unix(unix).format(gmc.get('chat-timestamp-format'));
       //create the span
       span = $('<span>', {
