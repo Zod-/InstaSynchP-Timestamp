@@ -3,7 +3,7 @@
 // @namespace   InstaSynchP
 // @description Adds timestamps to the chat
 
-// @version     1.0.1
+// @version     1.0.2
 // @author      Zod-
 // @source      https://github.com/Zod-/InstaSynchP-Timestamp
 // @license     MIT
@@ -66,7 +66,10 @@ Timestamp.prototype.executeOnce = function () {
 
   events.on(th, 'AddMessage', function (user, message) {
     //filtered greynames don't get added at all
-    if (!isUdef(user.loggedin) && !user.loggedin && room.filterGreyname) {
+    if (!isUdef(user.loggedin) &&
+        !user.loggedin &&
+        room.filterGreyname ||
+        window.room.isMuted(user.ip)) {
       return;
     }
 
@@ -89,11 +92,11 @@ Timestamp.prototype.executeOnce = function () {
       }
     } catch (err) {
       //ignore?
-      //when (new moment()) fails because of a loading issue
+      //when moment() fails because of a loading issue
       //it causes a endless spam of errors in chat
     }
   });
 };
 
 window.plugins = window.plugins || {};
-window.plugins.timestamp = new Timestamp('1.0.1');
+window.plugins.timestamp = new Timestamp('1.0.2');
