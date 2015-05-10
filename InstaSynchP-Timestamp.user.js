@@ -3,7 +3,7 @@
 // @namespace   InstaSynchP
 // @description Adds timestamps to the chat
 
-// @version     1.0.2
+// @version     1.0.3
 // @author      Zod-
 // @source      https://github.com/Zod-/InstaSynchP-Timestamp
 // @license     MIT
@@ -22,36 +22,25 @@ function Timestamp(version) {
   this.version = version;
   this.name = 'InstaSynchP Timestamp';
   this.settings = [{
-    'label': 'Timestamp',
-    'id': 'chat-timestamp',
-    'type': 'checkbox',
+    label: 'Show timestamps in chat',
+    id: 'chat-timestamp',
+    type: 'checkbox',
     'default': true,
-    'section': ['Chat', 'Timestamp']
+    section: ['Timestamp']
   }, {
-    'label': 'Timestamp Format',
-    'id': 'chat-timestamp-format',
-    'type': 'text',
+    label: 'Format of the timestamp <a href="http://momentjs.com/docs/#/displaying/" target="_blank">More info</a>',
+    title: 'Seconds can be added with :ss for example use the doc in the link for more info',
+    id: 'chat-timestamp-format',
+    type: 'text',
     'default': '\\[hh:mm\\] ',
-    'size': 10,
-    'section': ['Chat', 'Timestamp']
-  }, {
-    'id': 'timestamp-format-reset',
-    'type': 'hidden',
-    'value': 'true'
+    size: 10,
+    section: ['Timestamp']
   }];
 }
 
 Timestamp.prototype.executeOnce = function () {
   "use strict";
   var th = this;
-
-  //one time reset for people who already got it installed
-  //remove after couple weeks or so
-  if (gmc.get('timestamp-format-reset')) {
-    gmc.set('timestamp-format-reset', '');
-    gmc.set('chat-timestamp-format', '\\[hh:mm\\] ');
-    gmc.save();
-  }
 
   //add/remove timestamps when changing the setting
   events.on(th, 'SettingChange[chat-timestamp],SettingChange[chat-timestamp-format]', function () {
@@ -99,4 +88,4 @@ Timestamp.prototype.executeOnce = function () {
 };
 
 window.plugins = window.plugins || {};
-window.plugins.timestamp = new Timestamp('1.0.2');
+window.plugins.timestamp = new Timestamp('1.0.3');
